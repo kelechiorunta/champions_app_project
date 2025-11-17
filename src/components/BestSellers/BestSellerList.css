@@ -1,0 +1,28 @@
+.card-responsive-seller {
+  width: 100%;
+  max-width: 100%;
+}
+
+@media (min-width: 640px) {
+  /* sm */
+  .card-responsive-seller {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  /* md */
+  .card-responsive-seller {
+    width: 98%;
+    max-width: 98%;
+  }
+}
+
+@media (min-width: 1024px) {
+  /* lg */
+  .card-responsive-seller {
+    width: 40%;
+    max-width: 40%;
+  }
+}

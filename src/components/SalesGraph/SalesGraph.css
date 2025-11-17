@@ -1,0 +1,50 @@
+.card-responsive {
+  width: 100%;
+  max-width: 100%;
+}
+.card-responsive-tab {
+  height: 250px;
+  max-width: 570px;
+  /* margin-left: -130px; */
+}
+
+@media (min-width: 640px) {
+  /* sm */
+  .card-responsive {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .card-responsive-tab {
+    height: 250px;
+    max-width: 570px;
+    /* margin-left: -240px; */
+  }
+}
+
+@media (min-width: 768px) {
+  /* md */
+  .card-responsive {
+    width: 98%;
+    max-width: 100%;
+  }
+
+  .card-responsive-tab {
+    height: 250px;
+    max-width: 570px;
+    /* margin-left: -240px; */
+  }
+}
+
+@media (min-width: 1024px) {
+  /* lg */
+  .card-responsive {
+    width: 59%;
+    max-width: 59%;
+  }
+  .card-responsive-tab {
+    height: 250px;
+    max-width: 570px;
+    /* margin-left: -280px; */
+  }
+}

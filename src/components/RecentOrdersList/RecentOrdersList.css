@@ -1,0 +1,45 @@
+.text-responsive {
+  width: 100%;
+  /* max-width: 100%; */
+  max-width: 800px;
+  min-width: 300px;
+}
+
+@media (max-width: 500px) {
+  .heading {
+    display: none;
+  }
+}
+
+@media (max-width: 1024px) {
+  .heading {
+    display: none;
+  }
+}
+
+@media (min-width: 640px) {
+  /* sm */
+  .text-responsive {
+    width: 100%;
+    max-width: 700px;
+    min-width: 450px;
+  }
+}
+
+@media (min-width: 768px) {
+  /* md */
+  .text-responsive {
+    width: 100%;
+    max-width: 800px;
+    min-width: 580px;
+  }
+}
+
+@media (min-width: 1024px) {
+  /* lg */
+  .text-responsive {
+    width: 100%;
+    max-width: 700px;
+    min-width: 500px;
+  }
+}
