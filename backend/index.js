@@ -11,6 +11,7 @@ import { connectDB } from './db/db.js';
 import authRouter from './routes/authRoutes.js';
 import passport from 'passport';
 import bodyParser from 'body-parser';
+import dns from 'dns/promises';
 
 dotenv.config();
 

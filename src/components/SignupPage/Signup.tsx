@@ -6,6 +6,7 @@ import {
   Badge,
   Box,
   Button,
+  //   Card,
   Container,
   Flex,
   Heading,
@@ -18,6 +19,7 @@ import { CaretRightIcon } from '@radix-ui/react-icons';
 // import { BiLogoGithub, BiLogoGoogle } from 'react-icons/bi';
 import AnimateText from '../AnimateText/AnimateText';
 import { usePathContext } from '../PathContext/usePathContext';
+import Slider from '../Slider/Slider';
 
 const SignupSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Email is required'),
@@ -50,9 +52,10 @@ export default function Signup() {
         <Heading
           style={{
             position: 'absolute',
-            left: 30,
+            top: -70,
+            left: 50,
             height: '80px',
-
+            zIndex: 50,
             padding: 2
           }}
           mx={{ initial: '-4' }}
@@ -72,6 +75,19 @@ export default function Signup() {
             maxHeight: '75vh'
           }}
         />
+        <Flex
+          style={{
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            // overflow: 'hidden',
+            borderRadius: '50%',
+            width: 'max-content',
+            boxShadow: '2px 2px 2px 2px rgba(0,0,0,0.1)'
+          }}
+        >
+          <Slider buttonVisible={false} />
+        </Flex>
       </Flex>
 
       <Container

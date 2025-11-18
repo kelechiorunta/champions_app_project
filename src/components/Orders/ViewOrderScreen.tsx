@@ -32,8 +32,8 @@ export default function ViewOrderScreen() {
       py={'3'}
       px={'4'}
       gap={'3'}
-      width={'100%'}
-      maxWidth={'91%'}
+      width={'85%'}
+      maxWidth={'85%'}
       // minHeight={'100%'}
       // maxHeight={'100%'}
       // height={'100%'}
