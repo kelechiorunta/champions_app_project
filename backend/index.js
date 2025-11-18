@@ -42,7 +42,12 @@ const sessionOptions = {
 };
 
 // const allowedOrigins = process.env.ALLOWED_ORIGINS.split(',');
-const ALLOWED_ORIGINS = ['http://localhost:5174'];
+// Security Alert: Whitelist only allowed domains to prevent SSRF(Server Side Request forgery attack)
+const ALLOWED_ORIGINS = process.env.WHITELIST_API_DOMAINS.split(',').filter(
+  (domain) => domain !== ''
+);
+
+// console.log(ALLOWED_ORIGINS);
 
 export const corsOptions = {
   origin: (origin, callback) => {
