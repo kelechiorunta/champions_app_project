@@ -8,12 +8,13 @@ export type Appearance = 'light' | 'dark';
 
 // Define the shape of our context
 export interface ThemeContextType {
-  appearance: Appearance;
+  appearance: Appearance | string;
   toggleAppearance: () => void;
 }
 
 export default function ThemeContextProvider({ children }: { children: React.ReactNode }) {
-  const [appearance, setAppearance] = useState<Appearance>('light');
+  const localTheme = localStorage.getItem('localTheme');
+  const [appearance, setAppearance] = useState<Appearance | string>(localTheme || 'light');
   const [fade, setFade] = useState(false);
 
   const toggleAppearance = () => {
@@ -22,7 +23,19 @@ export default function ThemeContextProvider({ children }: { children: React.Rea
       setAppearance((prev) => (prev === 'light' ? 'dark' : 'light'));
       setFade(false);
     }, 500); // match fade timing
+    // Update both persistent toggled theme with localStorage localTheme object and current state appearance
+    if (appearance === 'light') {
+      localStorage.setItem('localTheme', 'dark');
+    } else {
+      localStorage.setItem('localTheme', 'light');
+    }
   };
+
+  //
+  // useEffect(() => {
+  //   const localTheme = localStorage.getItem('localTheme');
+  //   if (localTheme) setAppearance(localTheme);
+  // }, [appearance]);
 
   // const gradientLight = 'radial-gradient(circle at top left, #b2ebf2, #e0f7fa, #ffffff)';
   // const gradientDark = 'radial-gradient(circle at bottom right, #0a192f, #112240, #1b2735)';
@@ -31,7 +44,7 @@ export default function ThemeContextProvider({ children }: { children: React.Rea
     <ThemeContext.Provider value={{ appearance, toggleAppearance }}>
       {/* The actual Radix theme and content */}
       <Theme
-        appearance={appearance}
+        appearance={appearance as Appearance}
         panelBackground="translucent"
         accentColor="cyan"
         grayColor="olive"

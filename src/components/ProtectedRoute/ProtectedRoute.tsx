@@ -80,10 +80,11 @@ export default function ProtectedRoute() {
           inset: 0,
           justifyContent: 'center',
           alignItems: 'center',
-          width: '100vw',
+          width: '81%',
           minHeight: '100vh',
           color: 'white',
-          backgroundColor: 'rgba(0, 0, 0, 0.1)'
+          backgroundColor: 'rgba(0, 0, 0, 0.1)',
+          maxWidth: '81%'
         }}
       >
         {/* // <Login /> */}
