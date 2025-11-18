@@ -1,7 +1,35 @@
 import passport from 'passport';
+import User from '../models/User';
 
 const signupController = async (req, res) => {
   console.log(req.body);
+};
+
+const passportSignup = async (req, res) => {
+  const { username, password, email } = req.body;
+
+  try {
+    if (!username || !password || !email) {
+      return res.status(400).json({ error: 'All fields are required!' });
+    }
+
+    const existingUser = await User.findOne({ username });
+    if (existingUser) {
+      return res.status(400).json({ error: 'User already exists!' });
+    }
+
+    const newUser = new User({ username: username, password: password, email: email });
+    await newUser.save();
+
+    // Optionally log them in immediately with passport req object:
+    req.login(newUser, (err) => {
+      if (err) return res.status(500).json({ error: 'Auto-login failed after signup' });
+      return res.status(201).json({ message: 'Signup successful', user: newUser });
+    });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: 'Server error during signup' });
+  }
 };
 
 const passportLogin = (req, res, next) => {
@@ -41,4 +69,4 @@ const isAuthenticated = (req, res) => {
   }
 };
 
-export { signupController, passportLogin, isAuthenticated, logoutController };
+export { signupController, passportLogin, passportSignup, isAuthenticated, logoutController };

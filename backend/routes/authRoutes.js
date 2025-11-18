@@ -5,7 +5,8 @@ import {
   signupController,
   passportLogin,
   isAuthenticated,
-  logoutController
+  logoutController,
+  passportSignup
 } from '../controllers/authControllers.js';
 import { isauthenticated } from '../middleware/isAuthenticatedMiddleware.js';
 
@@ -15,7 +16,7 @@ configureLocalPassport(passport);
 
 authRouter.get('/logout', logoutController);
 authRouter.post('/signin', passportLogin);
-authRouter.post('/signup', signupController);
+authRouter.post('/signup', passportSignup);
 authRouter.get('/isAuthenticated', isauthenticated, isAuthenticated);
 
 export default authRouter;

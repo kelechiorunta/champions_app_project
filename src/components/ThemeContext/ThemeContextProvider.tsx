@@ -31,12 +31,6 @@ export default function ThemeContextProvider({ children }: { children: React.Rea
     }
   };
 
-  //
-  // useEffect(() => {
-  //   const localTheme = localStorage.getItem('localTheme');
-  //   if (localTheme) setAppearance(localTheme);
-  // }, [appearance]);
-
   // const gradientLight = 'radial-gradient(circle at top left, #b2ebf2, #e0f7fa, #ffffff)';
   // const gradientDark = 'radial-gradient(circle at bottom right, #0a192f, #112240, #1b2735)';
 
