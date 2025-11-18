@@ -1,5 +1,5 @@
 import passport from 'passport';
-import User from '../models/User';
+import User from '../models/User.js';
 
 const signupController = async (req, res) => {
   console.log(req.body);
