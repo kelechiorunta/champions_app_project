@@ -21,8 +21,10 @@ import { usePathContext } from '../PathContext/usePathContext';
 
 const SignupSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Email is required'),
-  username: Yup.string().required('Username is required'),
-  password: Yup.string().min(6, 'Minimum 6 characters').required('Password is required')
+  username: Yup.string()
+    .matches(/^[A-Za-z]{3,20}$/, 'Only letters are allowed.')
+    .required('Username is required'),
+  password: Yup.string().min(6, 'Minimum 6 characters').required('Password is required.')
 });
 
 export default function Signup() {

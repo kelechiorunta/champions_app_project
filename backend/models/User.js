@@ -8,7 +8,7 @@ import validator from 'validator';
 //   }, { _id: false }); // Disable _id for subdocs inside Map
 
 const userSchema = new mongoose.Schema({
-  username: { type: String, required: false, default: '' },
+  username: { type: String, required: false, default: '', match: /^[A-Za-z]{3,20}$/ },
   email: { type: String, required: false, validate: validator.isEmail },
   password: { type: String, required: false },
   createdAt: { type: Date, default: Date.now },
@@ -41,7 +41,6 @@ const userSchema = new mongoose.Schema({
     accessToken: { type: String, required: false },
     active: { type: Boolean, required: false }
   }
-
 });
 
 // Pre-save hook to hash the password before saving the user
