@@ -20,11 +20,12 @@ export default function Dashboard({ picture, username, email }: userTypes) {
       py={'3'}
       px={'4'}
       gap={'3'}
-      maxWidth={'81%'}
+      width={'85%'}
+      maxWidth={'85%'}
       overflowY={'scroll'}
       maxHeight={'100vh'}
     >
-      <Flex justify={'between'} gap={'2'} align={'center'}>
+      <Flex justify={'between'} gap={'2'} align={'center'} width={'100%'} maxWidth={'100%'}>
         <Flex direction={'column'} gap={'1'}>
           <Heading size={'5'} align={'left'} mt={'1'}>
             Dashboard

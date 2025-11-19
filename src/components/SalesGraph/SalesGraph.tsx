@@ -50,7 +50,7 @@ export default function SalesGraph() {
           <Box pt="3">
             <Tabs.Content
               className="card-responsive-tab"
-              ml={{ initial: '-5%', xs: '-55%', sm: '-90%', md: '-5%', lg: '-55%' }}
+              ml={{ initial: '-5%', xs: '-55%', sm: '-90%', md: '-5%', lg: '-90%' }}
               value="weekly"
             >
               {/* <Text size="2">Make changes to your account.</Text> */}
@@ -78,7 +78,7 @@ export default function SalesGraph() {
 
             <Tabs.Content
               className="card-responsive-tab"
-              ml={{ initial: '-5%', xs: '-55%', sm: '-90%', md: '-5%', lg: '-55%' }}
+              ml={{ initial: '-5%', xs: '-90%', sm: '-90%', md: '-5%', lg: '-90%' }}
               value="monthly"
             >
               {/* <Text size="2">Access and update your documents.</Text> */}
@@ -106,7 +106,7 @@ export default function SalesGraph() {
 
             <Tabs.Content
               className="card-responsive-tab"
-              ml={{ initial: '-5%', xs: '-55%', sm: '-90%', md: '-5%', lg: '-55%' }}
+              ml={{ initial: '-5%', xs: '-55%', sm: '-90%', md: '-5%', lg: '-90%' }}
               value="yearly"
             >
               {/* <Text size="2">Edit your profile or update contact information.</Text> */}

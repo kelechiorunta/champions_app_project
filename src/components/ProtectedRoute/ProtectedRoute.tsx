@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Navigate, Outlet, useLocation } from 'react-router-dom';
-// import { Spinner } from '../Spinner/Spinner';
-// import { Spinner } from '@radix-ui/themes';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';;
 // import Login from '../LoginPage/Login';
 import { Spinner } from '@radix-ui/themes';
+
 // import Login from '../LoginPage/Login';
 
 export default function ProtectedRoute() {
@@ -80,16 +79,18 @@ export default function ProtectedRoute() {
           inset: 0,
           justifyContent: 'center',
           alignItems: 'center',
-          width: '81%',
+          width: '85%',
           minHeight: '100vh',
           color: 'white',
           backgroundColor: 'rgba(0, 0, 0, 0.1)',
-          maxWidth: '81%'
+          maxWidth: '85%'
         }}
       >
-        {/* // <Login /> */}
-        {/* <Outlet context={newUser} /> */}
+        {/* <Skeleton loading={true} width={'500px'} height={'100vh'}> */}
+        {/* <Heading>Hello World</Heading> */}
         <Spinner />
+        {/* <Login /> */}
+        {/* </Skeleton> */}
       </div>
     );
   }

@@ -47,7 +47,7 @@ export default function Signup() {
         position="relative"
         width={{ initial: '200px', xs: '200px', sm: '200px', md: '40%', lg: '40%' }}
         maxHeight={{ initial: '200px', xs: '200px', sm: '200px', md: 'auto', lg: 'auto' }}
-        mt={{ initial: '-10px', xs: '-10' }}
+        mt={{ initial: '70px', xs: '70px' }}
       >
         <Heading
           style={{

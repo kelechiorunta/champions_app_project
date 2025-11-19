@@ -92,6 +92,11 @@ app.get('/proxy', (req, res) => {
 });
 
 if (process.env.NODE_ENV === 'development') {
+  // Set express port to PORT in DEV mode
+  app.set('port', PORT);
+}
+
+if (process.env.NODE_ENV === 'development') {
   // Error-handler middleware for handling errors in DEV mode
   app.use((err, req, res, next) => {
     console.error('Something went wrong', err);
