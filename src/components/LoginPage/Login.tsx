@@ -162,7 +162,7 @@ export default function Login() {
           style={{
             objectFit: 'cover',
             maxWidth: '95%',
-            borderRadius: 10,
+            borderRadius: '5%',
             maxHeight: '75vh'
           }}
         />
