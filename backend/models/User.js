@@ -41,6 +41,12 @@ const userSchema = new mongoose.Schema({
     email: { type: String, required: false, validate: validator.isEmail },
     accessToken: { type: String, required: false },
     active: { type: Boolean, required: false }
+  },
+  github: {
+    name: { type: String, required: false },
+    email: { type: String, required: false, validate: validator.isEmail },
+    accessToken: { type: String, required: false },
+    active: { type: Boolean, required: false }
   }
 });
 

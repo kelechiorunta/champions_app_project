@@ -5,6 +5,9 @@ import SalesGraph from '../SalesGraph/SalesGraph';
 import BestSellersList from '../BestSellers/BestSellersList';
 import { CaretRightIcon } from '@radix-ui/react-icons';
 import type { userTypes } from '../Home/Home';
+import ActionPopOverAdmin from '../ActionPopOver/ActionPopOverAdmin';
+
+import ActionPopOverNotifications from '../ActionPopOver/ActionPopOverNotifications';
 
 const cards = [
   { title: 'Total Orders', amount: '£126.500', percent: '34.7%' },
@@ -43,13 +46,20 @@ export default function Dashboard({ picture, username, email }: userTypes) {
           {/* </Badge> */}
         </Flex>
         <Flex direction={'column'} gap={'1'} align={'end'}>
-          <Avatar
-            src={picture ? picture : '/Champions.png'}
-            fallback={username ? username[0] : '/Champions.png'}
-            size={'2'}
-            radius="full"
-            highContrast
-          />
+          <Flex align="center" gap={'4'}>
+            <Badge radius="full" size={'3'} style={{ padding: '2px' }}>
+              <ActionPopOverNotifications />
+            </Badge>
+            <Avatar
+              src={picture ? picture : '/Champions.png'}
+              fallback={username ? username[0] : '/Champions.png'}
+              size={'2'}
+              radius="full"
+              highContrast
+            />
+            <ActionPopOverAdmin />
+          </Flex>
+
           <Badge title={email} size={'1'} color="cyan">
             {email}
           </Badge>

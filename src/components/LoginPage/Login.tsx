@@ -328,6 +328,7 @@ export default function Login() {
                     size="3"
                     style={{ width: '60%' }}
                     highContrast
+                    onClick={() => (window.location.href = 'proxy/auth/github')}
                   >
                     <BiLogoGithub size="20" />
                   </Button>

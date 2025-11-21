@@ -1,5 +1,6 @@
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import { Strategy as LocalStrategy } from 'passport-local';
+import { Strategy as GitHubStrategy } from 'passport-github';
 import dotenv from 'dotenv';
 
 import User from '../models/User.js';
@@ -84,6 +85,82 @@ export const configureGooglePassport = (passport) => {
             return done(null, googleUser);
           } else if (localUser) {
             localUser.google = {
+              email: profile.emails[0].value,
+              displayName: profile.displayName,
+              accessToken
+            };
+            await localUser.save();
+            console.log('Local user updated with Google info');
+            done(null, localUser);
+          } else {
+            //User is new
+            const user = await User.create(newUser);
+            done(null, user);
+          }
+        } catch (err) {
+          console.error('Google authentication error:', err.message);
+          done(err, null);
+        }
+      }
+    )
+  );
+
+  // 🔹 Serialize user into the session
+  passport.serializeUser((user, done) => {
+    console.log('🗄️ SERIALIZE user:', user);
+    done(null, user);
+  });
+
+  // 🔹 Deserialize user out of the session
+  passport.deserializeUser(async (account, done) => {
+    console.log('🗄️ DESERIALIZE user id:', account);
+    try {
+      // Lookup user in DB if needed
+      const user = account;
+      done(null, user);
+    } catch (err) {
+      console.error('❌ Deserialize error:', err);
+      done(err, null);
+    }
+  });
+};
+
+export const configureGithubPassport = (passport) => {
+  // 🔹 Register Google Strategy
+  passport.use(
+    new GitHubStrategy(
+      {
+        clientID: process.env.CHAMPIONS_GITHUB_ID,
+        clientSecret: process.env.CHAMPIONS_GITHUB_SECRET,
+        callbackURL: 'http://localhost:5174/proxy/auth/github/callback',
+        scope: ['profile', 'email']
+      },
+      async (accessToken, refreshToken, profile, done) => {
+        const currentUser = await User.findOne({ username: profile.displayName });
+
+        const newUser = {
+          username: currentUser
+            ? profile.displayName +
+              profile.displayName[profile.displayName.length - 1] +
+              // profile.emails[0].value[0] +
+              profile.emails[0].value[profile.emails[0].value.length - 1]
+            : profile.displayName,
+          email: profile.emails[0].value,
+          'github.name': profile.displayName, // Use displayName for the name
+          'github.email': profile.emails[0].value, // Use emails[0].value for email
+          'github.accessToken': accessToken, // ✅ save token
+          active: true
+        };
+        const githubUser = await User.findOne({ 'github.email': profile.emails[0].value });
+        const localUser = await User.findOne({ email: profile.emails[0].value });
+
+        try {
+          if (githubUser && localUser) {
+            return done(null, githubUser);
+          } else if (githubUser) {
+            return done(null, githubUser);
+          } else if (localUser) {
+            localUser.github = {
               email: profile.emails[0].value,
               displayName: profile.displayName,
               accessToken
