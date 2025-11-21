@@ -22,6 +22,7 @@ const userSchema = new mongoose.Schema({
   phone: { type: String, required: false },
   gender: { type: String, required: false },
   address: { type: String, required: false },
+  rememberMeToken: { type: String, required: false },
   otp: {
     type: String,
     default: 'otp',

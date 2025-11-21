@@ -38,11 +38,11 @@ export const configureLocalPassport = (passport) => {
     done(null, user);
   });
 
-  passport.deserializeUser(async (account, done) => {
+  passport.deserializeUser(async (user, done) => {
     try {
-      const user = account;
       done(null, user);
     } catch (err) {
+      console.log('LOGIN ERROR', err);
       done(err);
     }
   });
@@ -53,81 +53,52 @@ export const configureGooglePassport = (passport) => {
   passport.use(
     new GoogleStrategy(
       {
-        clientID: process.env.GOOGLE_CLIENT_ID_NEW,
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET_NEW,
-        callbackURL: 'https://ruut-webflow-oauth.vercel.app/webflow/oauth2/redirect/google',
+        clientID: process.env.CHAMPIONS_CLIENT_ID,
+        clientSecret: process.env.CHAMPIONS_CLIENT_SECRET,
+        callbackURL: 'http://localhost:5174/proxy/auth/oauth2/redirect/google',
         scope: ['profile', 'email']
       },
       async (accessToken, refreshToken, profile, done) => {
-        console.log('🔑 GoogleStrategy fired!');
-        console.log('AccessToken (truncated):', accessToken?.slice(0, 20) + '...');
-        console.log('Profile:', JSON.stringify(profile, null, 2));
+        const currentUser = await User.findOne({ username: profile.displayName });
 
         const newUser = {
-          username: profile.displayName,
-          email: profile.emails?.[0]?.value,
-          'google.name': profile.displayName,
-          'google.email': profile.emails?.[0]?.value,
-          'google.accessToken': accessToken,
+          username: currentUser
+            ? profile.displayName +
+              profile.displayName[profile.displayName.length - 1] +
+              // profile.emails[0].value[0] +
+              profile.emails[0].value[profile.emails[0].value.length - 1]
+            : profile.displayName,
+          email: profile.emails[0].value,
+          'google.name': profile.displayName, // Use displayName for the name
+          'google.email': profile.emails[0].value, // Use emails[0].value for email
+          'google.accessToken': accessToken, // ✅ save token
           active: true
         };
-
-        const email = profile.emails?.[0]?.value;
-
-        console.log('📧 EMAIL PASSPORT:', email || newUser);
+        const googleUser = await User.findOne({ 'google.email': profile.emails[0].value });
+        const localUser = await User.findOne({ email: profile.emails[0].value });
 
         try {
-          console.log('📡 Calling RUUT API with email:', email);
-          const response = await fetch('https://app.ruut.chat/auth/sign_in', {
-            headers: { 'Content-Type': 'application/json' },
-            method: 'POST',
-            body: JSON.stringify({ email, password }),
-            credentials: 'include'
-          });
-
-          console.log('RUUT response status:', response.status);
-
-          if (!response.ok) {
-            const error = await response.text();
-            console.error('❌ Ruut auth failed:', error);
-            return done(null, false);
+          if (googleUser && localUser) {
+            return done(null, googleUser);
+          } else if (googleUser) {
+            return done(null, googleUser);
+          } else if (localUser) {
+            localUser.google = {
+              email: profile.emails[0].value,
+              displayName: profile.displayName,
+              accessToken
+            };
+            await localUser.save();
+            console.log('Local user updated with Google info');
+            done(null, localUser);
+          } else {
+            //User is new
+            const user = await User.create(newUser);
+            done(null, user);
           }
-
-          const authHeader = response.headers.get('authorization');
-          const client = response.headers.get('client');
-          const uid = response.headers.get('uid');
-          const access = response.headers.get('access-token');
-
-          console.log('🔍 Headers received:', {
-            authHeader,
-            client,
-            uid,
-            access
-          });
-
-          if (!authHeader?.startsWith('Bearer ')) console.log('⚠️ No valid auth header');
-          if (!client) console.log('⚠️ No client header');
-          if (!uid) console.log('⚠️ No uid header');
-          if (!access) console.log('⚠️ No access-token header');
-
-          const token = authHeader?.split(' ')[1];
-          const { data } = await response.json();
-
-          console.log('📦 RUUT data payload:', data);
-
-          const account = {
-            data,
-            token,
-            client,
-            uid,
-            access
-          };
-
-          console.log('✅ Passing account to done:', account);
-          return done(null, account);
         } catch (err) {
-          console.error('❌ Google authentication error:', err.message);
-          return done(err, null);
+          console.error('Google authentication error:', err.message);
+          done(err, null);
         }
       }
     )

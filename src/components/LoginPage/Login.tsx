@@ -103,6 +103,7 @@ import {
   Badge,
   Box,
   Button,
+  Checkbox,
   Container,
   Flex,
   Heading,
@@ -118,7 +119,8 @@ import { usePathContext } from '../PathContext/usePathContext';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Email is required'),
-  password: Yup.string().min(6, 'Minimum 6 characters').required('Password is required')
+  password: Yup.string().min(6, 'Minimum 6 characters').required('Password is required'),
+  rememberMe: Yup.boolean()
 });
 
 export default function Login() {
@@ -152,7 +154,7 @@ export default function Login() {
           mx={{ initial: '-4' }}
           size={{ lg: '9', sm: '7', md: '8', xs: '7', initial: '7' }}
         >
-          <AnimateText texts={['Champions', 'Inventory', 'E-Commerce']} />
+          <AnimateText texts={['Champions', 'Inventory', 'E-Commerce', 'Business']} />
         </Heading>
 
         <img
@@ -174,7 +176,7 @@ export default function Login() {
         width={{ xs: '100%', sm: '100%' }}
       >
         <Formik
-          initialValues={{ email: '', password: '' }}
+          initialValues={{ email: '', password: '', rememberMe: false }}
           validationSchema={LoginSchema}
           onSubmit={async (values, { setSubmitting }) => {
             console.log('submit', values);
@@ -191,7 +193,16 @@ export default function Login() {
             }
           }}
         >
-          {({ values, handleChange, handleSubmit, handleBlur, touched, errors, isSubmitting }) => (
+          {({
+            values,
+            setFieldValue,
+            handleChange,
+            handleSubmit,
+            handleBlur,
+            touched,
+            errors,
+            isSubmitting
+          }) => (
             <form onSubmit={handleSubmit} style={{ width: '100%' }}>
               <Flex
                 direction="column"
@@ -275,6 +286,17 @@ export default function Login() {
                     {/* <TextField.Slot /> */}
                   </TextField.Root>
                 </Box>
+                <Flex align={'center'} gap={'2'}>
+                  <Checkbox
+                    size="2"
+                    checked={values.rememberMe}
+                    onCheckedChange={(checked) => {
+                      // Radix passes "checked" as true | false | "indeterminate"
+                      setFieldValue('rememberMe', checked === true);
+                    }}
+                  />
+                  <Text size="2">Keep Me Logged In</Text>
+                </Flex>
 
                 <Button
                   variant="classic"
@@ -295,6 +317,7 @@ export default function Login() {
                     size="3"
                     style={{ width: '60%' }}
                     highContrast
+                    onClick={() => (window.location.href = 'proxy/auth/google')}
                   >
                     <BiLogoGoogle size="20" />
                   </Button>

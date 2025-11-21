@@ -12,6 +12,7 @@ import authRouter from './routes/authRoutes.js';
 import passport from 'passport';
 import bodyParser from 'body-parser';
 import dns from 'dns/promises';
+import { rememberMeLogin } from './controllers/authControllers.js';
 
 dotenv.config();
 
@@ -85,6 +86,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Mount all auth routes here
+app.use('/proxy/auth', rememberMeLogin);
 app.use('/proxy/auth', authRouter);
 
 app.get('/proxy', (req, res) => {
