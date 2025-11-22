@@ -184,11 +184,14 @@ export default function Login() {
             try {
               const response = await axios.post(action, values);
               console.log(response.data);
+              localStorage.removeItem('redirectedOnce');
 
+              //   window.location.href = pathname ? pathname : '/';
               navigate(pathname ? pathname : '/', { replace: true });
             } catch (error) {
               console.error(error);
             } finally {
+              localStorage.removeItem('redirectedOnce');
               setSubmitting(false);
             }
           }}

@@ -1,4 +1,4 @@
-import { CrossCircledIcon } from '@radix-ui/react-icons';
+// import { CrossCircledIcon } from '@radix-ui/react-icons';
 import { Card, Flex, Heading } from '@radix-ui/themes';
 
 import NotificationBar from './NotificationBar';
@@ -11,7 +11,13 @@ export type NotificationType = {
   status: string;
 };
 
-export default function Notifications({ lists }: { lists: NotificationType[] }) {
+export default function Notifications({
+  lists,
+  closePopover
+}: {
+  lists: NotificationType[];
+  closePopover: React.ReactNode;
+}) {
   return (
     <Card>
       <Flex direction={'column'} gap={'2'} width={'100%'}>
@@ -19,7 +25,8 @@ export default function Notifications({ lists }: { lists: NotificationType[] }) 
           <Heading size={'2'} truncate>
             Notifications
           </Heading>
-          <CrossCircledIcon />
+          {closePopover}
+          {/* <CrossCircledIcon /> */}
         </Flex>
         {lists && lists.map((list, idx) => <NotificationBar key={idx} list={list} />)}
       </Flex>

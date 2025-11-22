@@ -6,7 +6,7 @@ import './BestSellerList.css';
 export default function BestSellersList() {
   return (
     <Card style={{ width: '100%' }}>
-      <Flex direction={'column'} gap={'1'}>
+      <Flex direction={'column'} gap={'1'} p={'2'}>
         <Flex justify={'between'} align={'center'} gap={'4'} mt={'-1'}>
           <Heading truncate size={'5'} weight={'bold'}>
             Best Sellers

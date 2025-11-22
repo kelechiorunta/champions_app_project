@@ -221,6 +221,7 @@
 import './RecentOrdersList.css';
 import { DotsVerticalIcon, MagnifyingGlassIcon } from '@radix-ui/react-icons';
 import {
+  Avatar,
   Badge,
   Button,
   Card,
@@ -252,6 +253,7 @@ export interface ListType {
   amount?: string;
   id?: number;
   phone?: string;
+  image?: string;
 }
 
 export default function RecentOrdersList() {
@@ -475,7 +477,18 @@ export default function RecentOrdersList() {
                       {(isMobile || isCollapsible) && (
                         <span style={{ fontSize: '12px', opacity: 0.6 }}>Product</span>
                       )}
-                      <span>{row.product}</span>
+                      <span>
+                        <Flex align="center" gap="2">
+                          {' '}
+                          <Avatar
+                            radius="full"
+                            src={row.image}
+                            size={'1'}
+                            fallback={'/Champions.png'}
+                          />
+                          {row.product}
+                        </Flex>
+                      </span>
                     </Table.Cell>
 
                     {/* Order ID */}

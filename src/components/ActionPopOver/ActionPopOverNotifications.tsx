@@ -1,4 +1,4 @@
-import { BellIcon } from '@radix-ui/react-icons';
+import { BellIcon, CrossCircledIcon } from '@radix-ui/react-icons';
 import { Popover } from '@radix-ui/themes';
 import Notifications from '../Notifications/Notifications';
 
@@ -40,7 +40,14 @@ export default function ActionPopOverNotifications() {
         <BellIcon />
       </Popover.Trigger>
       <Popover.Content>
-        <Notifications lists={bars} />
+        <Notifications
+          lists={bars}
+          closePopover={
+            <Popover.Close>
+              <CrossCircledIcon />
+            </Popover.Close>
+          }
+        />
       </Popover.Content>
     </Popover.Root>
   );

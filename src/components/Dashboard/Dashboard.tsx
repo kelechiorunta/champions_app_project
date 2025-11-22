@@ -102,7 +102,7 @@ export default function Dashboard({ picture, username, email }: userTypes) {
           </Flex>
         </Flex>
         <Flex
-          flexBasis={{ initial: '1', xs: '0', sm: '0', md: '0', lg: '1' }}
+          flexBasis={{ initial: '1', xs: '0', sm: '0', md: '0', lg: '0' }}
           flexGrow={'1'}
           display={{
             initial: 'flex',

@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Navigate, Outlet, useLocation } from 'react-router-dom';;
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 // import Login from '../LoginPage/Login';
 import { Spinner } from '@radix-ui/themes';
+import Login from '../LoginPage/Login';
 
 // import Login from '../LoginPage/Login';
 
@@ -38,6 +39,10 @@ export default function ProtectedRoute() {
 
         setCurrentUser(data.user);
         setIsAuthenticated(true);
+
+        const alreadyRedirected = localStorage.getItem('redirectedOnce');
+        console.log('Redirect', alreadyRedirected);
+        // localStorage.removeItem('redirectedOnce');
       } catch (err: unknown) {
         if (err instanceof Error) {
           console.error(err.message || 'Something went wrong');
@@ -47,14 +52,14 @@ export default function ProtectedRoute() {
 
         setIsAuthenticated(false);
         setCurrentUser(null);
-        localStorage.removeItem('entry');
+        // localStorage.removeItem('entry');
       } finally {
         setLoading(false);
       }
     };
 
     checkAuth();
-  }, []);
+  }, [isAuthenticated, location]);
 
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1220);
   const [isCollapsible, setIsCollapsible] = useState(window.innerWidth < 400);
@@ -95,9 +100,31 @@ export default function ProtectedRoute() {
     );
   }
 
-  if (!isAuthenticated) {
-    return <Navigate to="/login" state={{ path: location.pathname }} replace />;
+  // if (!isAuthenticated) {
+
+  //   return <Navigate to="/login" state={{ path: location.pathname }} replace key={'/login'} />;
+  // }
+
+  // return <Outlet context={newUser} />;
+
+  // Only redirect once per user session
+  const alreadyRedirected = localStorage.getItem('redirectedOnce');
+
+  if (!isAuthenticated && !currentUser) {
+    if (!alreadyRedirected) {
+      // Mark that we've redirected
+      localStorage.setItem('redirectedOnce', 'true');
+
+      return <Navigate to="/login" replace state={{ path: location.pathname }} />;
+    }
+
+    // We have already redirected → just show the login page as-is
+
+    return <Login />;
   }
+
+  // User is authenticated again → reset redirect flag
+  // sessionStorage.removeItem('redirectedOnce');
 
   return <Outlet context={newUser} />;
 }

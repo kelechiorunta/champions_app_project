@@ -16,7 +16,8 @@ const orders = [
       { product: 'Mactosh 124', order_id: '#254426', quantity: 4, price: '£20.00' },
       { product: 'Thermocool 61', order_id: '#254426', quantity: 4, price: '£20.00' },
       { product: 'Blender 235', order_id: '#254421', quantity: 3, price: '£30.00' }
-    ]
+    ],
+    image: '/battery.png'
   },
   {
     id: 2,
@@ -36,7 +37,8 @@ const orders = [
       { product: 'Thermocool 61', order_id: '#254426', quantity: 4, price: '£20.00' },
       { product: 'Blender 235', order_id: '#254421', quantity: 3, price: '£30.00' },
       { product: 'Microwave 562', order_id: '#254424', quantity: 3, price: '£30.00' }
-    ]
+    ],
+    image: '/inverter.png'
   },
   {
     id: 3,
@@ -51,7 +53,8 @@ const orders = [
     status: 'Delivered',
     amount: '£45.00',
     phone: '08035350031',
-    quantity: 3
+    quantity: 3,
+    image: '/airpodsPro.png'
   },
   {
     id: 4,
@@ -66,7 +69,8 @@ const orders = [
     status: 'Cancelled',
     amount: '£20.00',
     phone: '08065550031',
-    quantity: 1
+    quantity: 1,
+    image: '/AppIcon.jpg'
   },
   {
     id: 5,
@@ -81,7 +85,8 @@ const orders = [
     status: 'Delivered',
     amount: '£20.00',
     phone: '07065350031',
-    quantity: 5
+    quantity: 5,
+    image: '/grocery1.png'
   },
   {
     id: 6,
@@ -96,7 +101,8 @@ const orders = [
     status: 'Pending',
     amount: '£20.00',
     phone: '09065350031',
-    quantity: 2
+    quantity: 2,
+    image: '/jug.png'
   },
   {
     id: 7,

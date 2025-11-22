@@ -19,7 +19,7 @@ export default function NotificationBar({ list }: { list: NotificationType }) {
             </Text>
           </Flex>
         </Flex>
-        <Badge>{list.status}</Badge>
+        <Badge size={'1'}>{list.status.toUpperCase()}</Badge>
       </Flex>
     </Card>
   );

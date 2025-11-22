@@ -16,6 +16,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useThemeContext } from '../ThemeContext/useThemeContext';
 import { usePathContext } from '../PathContext/usePathContext';
+import axios from 'axios';
 // import Settings from '../Settings/Settings';
 
 export interface sideNavProps {
@@ -55,9 +56,14 @@ export default function SideNav({ isMobile, isCollapsible }: sideNavProps) {
   // Logout function
   const handleLogout = async () => {
     try {
-      window.location.href = '/proxy/auth/logout';
+      localStorage.setItem('redirectedOnce', 'true');
+      await axios.get('/proxy/auth/logout');
+      navigate('/login');
+      // window.location.href = '/proxy/auth/logout';
     } catch (error) {
       console.error(error);
+    } finally {
+      localStorage.setItem('redirectedOnce', 'true');
     }
   };
 
