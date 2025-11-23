@@ -1,7 +1,12 @@
 import { Flex, Heading, Text, Separator, AlertDialog, Button } from '@radix-ui/themes';
 import { useNavigate, useParams } from 'react-router-dom';
 import orders from '../RecentOrdersList/orders';
-import { ArrowLeftIcon, CaretRightIcon, DotsVerticalIcon } from '@radix-ui/react-icons';
+import {
+  ArrowLeftIcon,
+  CaretRightIcon,
+  CrossCircledIcon,
+  DotsVerticalIcon
+} from '@radix-ui/react-icons';
 import ViewOrder from './ViewOrder';
 import OrderProduct from './OrderProduct';
 
@@ -75,7 +80,16 @@ export default function ViewOrderScreen() {
                 </Button>
               </AlertDialog.Trigger>
               <AlertDialog.Content style={{ padding: '4', maxHeight: '900px', marginTop: '-20px' }}>
-                <OrderProduct orderProducts={order?.order_products || []} />
+                <OrderProduct
+                  orderProducts={order?.order_products || []}
+                  cancelIcon={
+                    <AlertDialog.Cancel>
+                      <Button size={'2'} variant="surface" style={{ cursor: 'pointer' }}>
+                        <CrossCircledIcon />
+                      </Button>
+                    </AlertDialog.Cancel>
+                  }
+                />
               </AlertDialog.Content>
             </AlertDialog.Root>
           </Flex>

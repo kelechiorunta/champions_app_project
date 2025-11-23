@@ -1,12 +1,12 @@
 import products from './products';
 import {
   AlertDialog,
-  AspectRatio,
-  Avatar,
+  Box,
   Button,
   Card,
   Flex,
   Heading,
+  IconButton,
   Text,
   TextArea,
   TextField
@@ -14,7 +14,7 @@ import {
 import { Formik, Form, Field, ErrorMessage, type FieldProps } from 'formik';
 import * as Yup from 'yup';
 import { useState } from 'react';
-import { BackpackIcon } from '@radix-ui/react-icons';
+import { PlusIcon } from '@radix-ui/react-icons';
 
 export interface formProps {
   name?: string;
@@ -130,10 +130,9 @@ export default function AddProduct({ name }: ViewProps) {
                   {/* Tags */}
                   <FormField label="Tag" name="tag" placeholder="Tags (comma separated)" />
                 </Flex>
-
                 {/* RIGHT COLUMN */}
                 <Flex direction={'column'} gap={'6'} width={'30%'}>
-                  <Flex direction={'column'} gap={'1'}>
+                  {/* <Flex direction={'column'} gap={'1'}>
                     <AspectRatio ratio={4 / 4}>
                       <Avatar
                         src={preview || '/assets/placeholder.jpg'}
@@ -142,9 +141,9 @@ export default function AddProduct({ name }: ViewProps) {
                         size={'9'}
                       />
                     </AspectRatio>
-                  </Flex>
+                  </Flex> */}
                   {/* Image Upload */}
-                  <Flex direction="column" gap="1">
+                  {/* <Flex direction="column" gap="1">
                     <Text as="label" size="2" weight="bold" truncate>
                       Gallery Image
                     </Text>
@@ -167,6 +166,88 @@ export default function AddProduct({ name }: ViewProps) {
                       // style={{ color: 'red', fontSize: '0.8rem' }}
                     />
                   </Flex>
+                </Flex> */}
+                </Flex>
+                <Flex direction="column" gap="1" style={{ width: '100%' }}>
+                  <Text as="label" size="2" weight="bold">
+                    Gallery Image
+                  </Text>
+
+                  <Box
+                    asChild
+                    style={{
+                      border: '2px dashed #c4c4c4',
+                      borderRadius: '8px',
+                      height: '140px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      cursor: 'pointer',
+                      background: '#fff',
+                      transition: '0.2s'
+                    }}
+                  >
+                    <label
+                      htmlFor="gallery-upload"
+                      style={{
+                        width: '100%',
+                        height: '100%',
+                        textAlign: 'center',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                      }}
+                    >
+                      {!preview ? (
+                        <Flex direction={'column'} align={'center'} p="4">
+                          <IconButton
+                            size="3"
+                            radius="full"
+                            style={{
+                              backgroundColor: '#4CAF50',
+                              color: 'white',
+                              marginBottom: '6px'
+                            }}
+                          >
+                            <PlusIcon />
+                          </IconButton>
+
+                          <Text size="2" style={{ color: '#4CAF50' }}>
+                            Add Image
+                          </Text>
+                        </Flex>
+                      ) : (
+                        <img
+                          src={preview}
+                          alt="preview"
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            borderRadius: '6px'
+                          }}
+                        />
+                      )}
+                    </label>
+                  </Box>
+
+                  <input
+                    id="gallery-upload"
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (!file) return;
+
+                      setFieldValue('gallery', file);
+
+                      const reader = new FileReader();
+                      reader.onloadend = () => setPreview(reader.result as string);
+                      reader.readAsDataURL(file);
+                    }}
+                    style={{ display: 'none' }}
+                  />
                 </Flex>
               </Flex>
 

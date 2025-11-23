@@ -343,7 +343,7 @@ export default function RecentOrdersList() {
 
   return (
     <Flex maxWidth={'100%'}>
-      <Grid columns={'repeat(1, 100%'} width={'100%'} maxWidth={'100%'}>
+      <Grid columns={'repeat(1, 100%)'} width={'100%'} maxWidth={'100%'}>
         <Card
           style={{
             maxHeight: '400px',

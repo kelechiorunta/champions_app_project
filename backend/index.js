@@ -6,6 +6,7 @@ import session from 'express-session';
 import cookieParser from 'cookie-parser';
 import ConnectMongoDBSession from 'connect-mongodb-session';
 import cors from 'cors';
+import path from 'path';
 
 import { connectDB } from './db/db.js';
 import authRouter from './routes/authRoutes.js';
@@ -84,6 +85,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Initialize passport middleware, strategy and session
 app.use(passport.initialize());
 app.use(passport.session());
+
+// Static public assets rendering
+const staticAssetsPath = path.resolve(process.cwd(), '../dist');
+console.log(staticAssetsPath)
+app.use(express.static(staticAssetsPath), (err, req, res, next) => {
+  console.error('Error in static path', err);
+  next(err);
+});
 
 // Mount all auth routes here
 app.use('/proxy/auth', rememberMeLogin);

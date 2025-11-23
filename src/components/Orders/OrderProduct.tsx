@@ -34,9 +34,10 @@ export interface ordersProductType {
 
 export interface ordersProductArrayType {
   orderProducts: ordersProductType[];
+  cancelIcon: React.ReactNode;
 }
 
-export default function OrderProduct({ orderProducts }: ordersProductArrayType) {
+export default function OrderProduct({ orderProducts, cancelIcon }: ordersProductArrayType) {
   // Track each row’s checkbox
   const [checkedItems, setCheckedItems] = useState(orders.map(() => false));
 
@@ -105,11 +106,15 @@ export default function OrderProduct({ orderProducts }: ordersProductArrayType) 
             Products
           </Heading>
 
-          <ActionPopOverOrder
-            handleFilter={setFilter}
-            rowLists={rowLists}
-            // handleTabSelect={handleTabSelect}
-          />
+          <Flex align={'center'} gap={'2'}>
+            <ActionPopOverOrder
+              handleFilter={setFilter}
+              rowLists={rowLists}
+              // handleTabSelect={handleTabSelect}
+            />
+
+            {cancelIcon}
+          </Flex>
         </Flex>
 
         <Separator size="4" />
