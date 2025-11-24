@@ -113,7 +113,7 @@ import {
   TextField
 } from '@radix-ui/themes';
 import { CaretRightIcon } from '@radix-ui/react-icons';
-import { BiLogoGithub, BiLogoGoogle } from 'react-icons/bi';
+import { BiLogoFacebook, BiLogoGithub, BiLogoGoogle } from 'react-icons/bi';
 import AnimateText from '../AnimateText/AnimateText';
 import { usePathContext } from '../PathContext/usePathContext';
 
@@ -334,6 +334,17 @@ export default function Login() {
                     onClick={() => (window.location.href = 'proxy/auth/github')}
                   >
                     <BiLogoGithub size="20" />
+                  </Button>
+
+                  <Button
+                    type="button"
+                    variant="surface"
+                    size="3"
+                    style={{ width: '60%' }}
+                    highContrast
+                    onClick={() => (window.location.href = 'proxy/auth/facebook')}
+                  >
+                    <BiLogoFacebook size="20" />
                   </Button>
                 </Flex>
 
