@@ -26,7 +26,9 @@ const sanitizeValidator = (schema) => [
 
     if (!errors.isEmpty()) {
       // There are errors. Send the error to the client form again with sanitized values/error messages.
-      return res.status(400).json({ error: errors.array() });
+      // The configured way of returning errors from the configApp folder
+      // return res.status(400).json({ error: errors.array() });
+      return res.sendStatus(400, 'application/json', errors.array());
     }
     next();
   }
