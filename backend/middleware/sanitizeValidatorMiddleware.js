@@ -1,10 +1,12 @@
 import { body, validationResult } from 'express-validator';
 
+// Login sanitized schema
 export const loginSchema = [
   body('email').isEmail().withMessage('Invalid email format'),
   body('password').trim().isLength({ min: 6 }, 'Minimum 6 characters')
 ];
 
+// Signup sanitized schema
 export const signupSchema = [
   body('username', 'Username must be alphabets')
     .matches(/^[A-Za-z]{3,20}$/)
