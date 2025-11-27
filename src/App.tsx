@@ -12,6 +12,8 @@ import axios from 'axios';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import Signup from './components/SignupPage/Signup';
 import Settings from './components/Settings/Settings';
+import { AlertDialog } from '@radix-ui/themes';
+import { CrossCircledIcon } from '@radix-ui/react-icons';
 
 function App() {
   useEffect(() => {
@@ -39,8 +41,60 @@ function App() {
           <Route path="settings" element={<Settings />} />
         </Route>
 
-        <Route path="login" element={<Login />} />
-        <Route path="signup" element={<Signup />} />
+        <Route
+          path="login"
+          element={
+            <AlertDialog.Root defaultOpen>
+              <AlertDialog.Content
+                width={{ initial: '100%', xs: '100%', sm: '75%', md: '75%', lg: '75%' }}
+                height={'90%'}
+                maxHeight={'90%'}
+                maxWidth={{ initial: '100%', xs: '100%', sm: '75%', md: '75%', lg: '75%' }}
+                style={{
+                  padding: 4,
+                  // placeItems: 'center',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
+                <Login />
+                <AlertDialog.Cancel
+                  style={{ float: 'right', position: 'absolute', right: 20, top: 20 }}
+                >
+                  <CrossCircledIcon />
+                </AlertDialog.Cancel>
+              </AlertDialog.Content>
+            </AlertDialog.Root>
+          }
+        />
+        <Route
+          path="signup"
+          element={
+            <AlertDialog.Root defaultOpen>
+              <AlertDialog.Content
+                width={{ initial: '95%', xs: '95%', sm: '75%', md: '75%', lg: '75%' }}
+                height={'90%'}
+                maxHeight={'90%'}
+                maxWidth={{ initial: '95%', xs: '90%', sm: '75%', md: '75%', lg: '75%' }}
+                style={{
+                  padding: 4,
+                  // placeItems: 'center',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
+                <Signup />
+                <AlertDialog.Cancel
+                  style={{ float: 'right', position: 'absolute', right: 20, top: 20 }}
+                >
+                  <CrossCircledIcon />
+                </AlertDialog.Cancel>
+              </AlertDialog.Content>
+            </AlertDialog.Root>
+          }
+        />
       </Route>
     </Routes>
   );

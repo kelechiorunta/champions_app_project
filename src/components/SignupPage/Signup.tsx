@@ -40,8 +40,8 @@ export default function Signup() {
       gap="2"
       justify="center"
       p={{ lg: '4', sm: '2', xs: '2', md: '2', initial: '2' }}
-      wrap="wrap"
-      width={'85%'}
+      wrap={{ initial: 'wrap', xs: 'wrap', sm: 'wrap', md: 'nowrap', lg: 'nowrap' }}
+      width={'100%'}
     >
       <Flex
         position="relative"
@@ -66,7 +66,7 @@ export default function Signup() {
 
         <img
           width="100%"
-          height={'50%'}
+          height={'30%'}
           src="/battery.png"
           style={{
             objectFit: 'cover',

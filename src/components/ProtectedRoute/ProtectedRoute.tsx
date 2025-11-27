@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 // import Login from '../LoginPage/Login';
-import { Spinner } from '@radix-ui/themes';
+import { AlertDialog, Spinner } from '@radix-ui/themes';
 import Login from '../LoginPage/Login';
+import { CrossCircledIcon } from '@radix-ui/react-icons';
 
 // import Login from '../LoginPage/Login';
 
@@ -108,19 +109,41 @@ export default function ProtectedRoute() {
   // return <Outlet context={newUser} />;
 
   // Only redirect once per user session
-  const alreadyRedirected = localStorage.getItem('redirectedOnce');
+  // const alreadyRedirected = localStorage.getItem('redirectedOnce');
 
-  if (!isAuthenticated && !currentUser) {
-    if (!alreadyRedirected) {
-      // Mark that we've redirected
-      localStorage.setItem('redirectedOnce', 'true');
+  if (!isAuthenticated || !currentUser) {
+    // Uncomment this for cached routing
+    // if (!alreadyRedirected) {
+    // Mark that we've redirected
+    localStorage.setItem('redirectedOnce', 'true');
 
-      return <Navigate to="/login" replace state={{ path: location.pathname }} />;
-    }
+    return <Navigate to="/login" replace state={{ path: location.pathname }} />;
+    // }
 
     // We have already redirected → just show the login page as-is
 
-    return <Login />;
+    return (
+      <AlertDialog.Root defaultOpen>
+        <AlertDialog.Content
+          width={{ initial: '100%', xs: '100%', sm: '75%', md: '75%', lg: '75%' }}
+          height={'90%'}
+          maxHeight={'90%'}
+          maxWidth={{ initial: '100%', xs: '100%', sm: '75%', md: '75%', lg: '75%' }}
+          style={{
+            padding: 4,
+            // placeItems: 'center',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
+          <Login />
+          <AlertDialog.Cancel style={{ float: 'right', position: 'absolute', right: 20, top: 20 }}>
+            <CrossCircledIcon />
+          </AlertDialog.Cancel>
+        </AlertDialog.Content>
+      </AlertDialog.Root>
+    );
   }
 
   // User is authenticated again → reset redirect flag

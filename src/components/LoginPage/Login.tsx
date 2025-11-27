@@ -133,14 +133,14 @@ export default function Login() {
       align="center"
       gap="2"
       justify="center"
-      p={{ lg: '4', sm: '2', xs: '2', md: '2', initial: '2' }}
-      wrap="wrap"
-      width={'85%'}
+      p={{ lg: '1', sm: '2', xs: '2', md: '2', initial: '2' }}
+      wrap={{ initial: 'wrap', xs: 'wrap', sm: 'wrap', md: 'nowrap', lg: 'nowrap' }}
+      width={'100%'}
     >
       <Flex
         position="relative"
-        width={{ initial: '200px', xs: '200px', sm: '200px', md: '40%', lg: '40%' }}
-        maxHeight={{ initial: '200px', xs: '200px', sm: '200px', md: 'auto', lg: 'auto' }}
+        width={{ initial: '200px', xs: '200px', sm: '200px', md: '40%', lg: '500px' }}
+        maxHeight={{ initial: '230px', xs: '250px', sm: '200px', md: 'auto', lg: 'auto' }}
         mt={{ initial: '-10px', xs: '-10' }}
       >
         <Heading
@@ -159,7 +159,7 @@ export default function Login() {
 
         <img
           width="100%"
-          height={'50%'}
+          height={'30%'}
           src="/login.png"
           style={{
             objectFit: 'cover',

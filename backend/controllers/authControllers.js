@@ -36,7 +36,7 @@ const passportSignup = async (req, res) => {
 const passportLogin = (req, res, next) => {
   passport.authenticate(
     'local',
-    { failureRedirect: '/login', failureMessage: 'true' },
+    { failureRedirect: '/login', failureMessage: true },
     async (err, user, info) => {
       if (err || !user) {
         return res.status(401).json({ error: info?.message || 'Unauthorized' });
